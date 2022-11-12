@@ -19,12 +19,13 @@ SECRET_KEY = 'django-insecure-dg7%+uc8)9v(%30fbf#z&twib)z%^5(bn&3d40)#g++z*t-65b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'fxworld.ru']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'fxworld.ru', '158.160.9.30']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'marketdata.apps.MarketdataConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

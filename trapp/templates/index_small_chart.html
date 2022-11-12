@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>fx world</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+}
+
+body{
+	max-width:600px;
+	margin: 0px auto;
+	border: 1px solid #D3D3D3;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   //background-color: coral;
+   color: grey;
+   text-align: center;
+   border-top: 3px solid #F8F8F8;
+}
+
+.bottom-menu{
+	background-color: white;
+}
+
+.line {
+		  fill: none;
+		  stroke: #D3D3D3;
+		  stroke-width: 1px;
+		}
+
+.minch{
+	width:160px;
+	float:left;
+	margin:0px 0px 0px 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- Container (Portfolio Section) -->
+<div class="w3-content w3-container" id="portfolio">
+  <h3 class="w3-center">ВАЛЮТА</h3>
+  <p class="w3-center"><em>список инструментов</em></p>
+
+  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+  <div id="stdout1" class="minch"></div>
+  <div id="stdout2" class="minch"></div>
+  <div id="stdout3" class="minch"></div>
+  <div id="stdout4" class="minch"></div>
+  <div id="stdout5" class="minch"></div>
+  <div id="stdout6" class="minch"></div>
+  <div id="stdout7" class="minch"></div>
+  <div id="stdout8" class="minch"></div>
+  
+  <!--<div class="w3-row w3-center">
+    <div class="w3-col s4">
+      <img src="images/fx1.png" style="width:100%" class="w3-hover-opacity" alt="fx1">
+    </div>
+
+    <div class="w3-col s4">
+      <img src="images/fx2.png" style="width:100%" class="w3-hover-opacity" alt="fx2">
+    </div>
+
+    <div class="w3-col s4">
+      <img src="images/fx3.png" style="width:100%" class="w3-hover-opacity" alt="fx3">
+    </div>
+
+  </div>-->
+
+	<div class="footer">
+		<div class="w3-row bottom-menu">
+			<div class="w3-col s3" style="color: coral">
+				<span class="w3-small"><i class="fa fa-money" aria-hidden="true"></i></span>
+				<span class="w3-small">Валюта</span>
+			</div>
+			<div class="w3-col s3">
+				<span class="w3-small"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+				<span class="w3-small">Купить</span>
+			</div>
+			<div class="w3-col s3">
+				<span class="w3-small"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
+				<span class="w3-small">Портфель</span>
+			</div>
+			<div class="w3-col s3">
+				<span class="w3-small"><i class="fa fa-user" aria-hidden="true"></i></span>
+				<span class="w3-small">Я</span>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+ticker_names = {
+	"USD000UTSTOM": "USD/RUB",
+	"EUR_RUB__TOM": "EUR/RUB", 
+	"CNYRUB_TOM": "CNY/RUB",
+	"USDCNY_TOM": "USD/CNY", 
+	"KZTRUB_TOM": "KZT/RUB", 
+	"HKDRUB_TOM": "HKD/TOM",
+	"TRYRUB_TOM": "TRY/RUB", 
+	"EURUSD000TOM": "EUR/USD"
+}
+
+var tickers = ["USD000UTSTOM", "EUR_RUB__TOM", "CNYRUB_TOM", "USDCNY_TOM", "KZTRUB_TOM", "HKDRUB_TOM", "TRYRUB_TOM", "EURUSD000TOM"];
+var divids = ["#stdout1", "#stdout2", "#stdout3", "#stdout4", "#stdout5", "#stdout6", "#stdout7", "#stdout8"];
+
+for(var i=0;i<tickers.length;i++){
+	draw(tickers[i], divids[i]);
+}
+
+function draw(ticker, divid){
+	var margin = {top: 0, right: 0, bottom: 0, left: 0},
+		width = 160 - margin.left - margin.right,
+		height = 100 - margin.top - margin.bottom;
+
+	// parse the date / time
+	var parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
+
+	var svg = d3.select(divid).append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+		.attr("transform",
+			  "translate(" + margin.left + "," + margin.top + ")");
+			  
+	var colorScale = d3.scaleLinear().domain([-2, -1.5,-1, -0.5, 0, 0.5, 1, 1.5, 2])
+			.range(['rgb(246, 53, 56)', 'rgb(246, 53, 56)', 'rgb(191, 64, 69)', 'rgb(139, 68, 78)',
+			'rgb(65, 69, 84)', 'rgb(53, 118, 78)', 'rgb(47, 158, 79)', 'rgb(48, 204, 90)', 'rgb(48, 204, 90)']);
+
+	
+	d3.json("https://iss.moex.com/iss/engines/currency/markets/selt/boards/cets/securities/"+ticker+"/candles.json?from=2022-11-11&till=2022-11-11&interval=1&iss.json=extended").then(function(data) {
+	  
+	  data = data[1]['candles'][1];
+	  
+	  data = data.filter((d,i)=>i%4==0);
+	  console.log(data);
+	  
+	  data.forEach(function(d) {
+		  d.begin = parseTime(d.begin);
+		  d.close = +d.close;
+	  });
+	  
+	  // set the ranges
+		var x = d3.scaleTime()
+					.domain(data.map(d => d.begin))
+					.range(d3.range(0, width));
+
+		var y = d3.scaleLinear().range([height-10, 35]);
+
+		// define the line
+		var valueline = d3.line()
+			.x(function(d) { return x(d.begin); })
+			.y(function(d) { return y(d.close); });
+			
+
+	  // Scale the range of the data
+	  //x.domain(d3.extent(data, function(d) { return d.end; }));
+	  y_min = d3.min(data, function(d) { return d.close; });
+	  y_max = d3.max(data, function(d) { return d.close; });
+	  y_first = data[0]["open"];
+	  y_last = data[data.length-1]["close"];
+	  chg = Math.round(10000 * (y_last - y_first) / y_first) / 100;
+	  chg2 = Math.round(10000 * (y_max - y_min) / y_min) / 100;
+	  
+	  y.domain([y_min, y_max]);
+	  
+	svg.append("g")
+		.append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", width)
+		.attr("height", height)
+		.attr("fill", colorScale(chg))
+		.attr("opacity", 1);
+		
+	svg.append("g")
+		.append("text")
+		.attr("x", 4)
+		.attr("y", 13)
+		.text(ticker_names[ticker])
+		.attr("font-size", "12px")
+		.attr("font-weight", "bold")
+		.attr("fill", "#F8F8F8");
+		
+	svg.append("g")
+		.append("text")
+		.attr("x", 4)
+		.attr("y", 30)
+		.text(y_last)
+		.attr("font-size", "14px")
+		.attr("font-weight", "bold")
+		.attr("fill", "#F8F8F8");
+		
+	svg.append("g")
+		.append("text")
+		.attr("x", 120)
+		.attr("y", 13)
+		.text(chg + "%")
+		.attr("font-size", "12px")
+		.attr("font-weight", "bold")
+		.attr("fill", "#F8F8F8");
+		
+		
+	/*svg.append("g")
+		.append("text")
+		.attr("x", 110)
+		.attr("y", 10)
+		.text("H " + y_max)
+		.attr("font-size", "10px")
+		.attr("fill", "#C0C0C0");
+		
+		
+	svg.append("g")
+		.append("text")
+		.attr("x", 110)
+		.attr("y", 22)
+		.text("L " + y_min)
+		.attr("font-size", "10px")
+		.attr("fill", "#C0C0C0");
+		
+	svg.append("g")
+		.append("text")
+		.attr("x", 110)
+		.attr("y", 32)
+		.text(chg2 + "%")
+		.attr("font-size", "9px")
+		.attr("fill", "#C0C0C0");*/
+		
+
+	  // Add the valueline path.
+	  svg.append("path")
+		  .data([data])
+		  .attr("class", "line")
+		  .attr("d", valueline);
+
+	});
+}
+</script>
+
+</body>
+</html> 
