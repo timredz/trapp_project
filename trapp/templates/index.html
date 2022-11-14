@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>Instruments</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../static/favicon/site.webmanifest">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
   height: 100%;
   color: #777;
-  line-height: 1.8;
 }
 
 .footer {
@@ -29,6 +33,17 @@ body, html {
 .bottom-menu{
 	background-color: white;
 }
+
+.line {
+	fill: none;
+	stroke-width: 1px;
+}
+
+.minch{
+	width:160px;
+	float:left;
+	margin:0px 0px 0px 3px;
+}
 </style>
 </head>
 <body>
@@ -36,36 +51,34 @@ body, html {
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
   <h3 class="w3-center">ВАЛЮТА</h3>
-  <p class="w3-center"><em>список инструментов</em></p>
-
+  <br>
+  
   <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-  <div class="w3-row w3-center">
+  <div id="stdout1" class="minch"></div>
+  <div id="stdout2" class="minch"></div>
+  <div id="stdout3" class="minch"></div>
+  <div id="stdout4" class="minch"></div>
+  <div id="stdout5" class="minch"></div>
+  <div id="stdout6" class="minch"></div>
+  <div id="stdout7" class="minch"></div>
+  <div id="stdout8" class="minch"></div>
+  
+  <!--<div class="w3-row w3-center">
     <div class="w3-col s4">
-      <img src="static/image/fx1.png" style="width:100%" class="w3-hover-opacity" alt="fx1">
+      <img src="images/fx1.png" style="width:100%" class="w3-hover-opacity" alt="fx1">
     </div>
 
     <div class="w3-col s4">
-      <img src="static/image/fx2.png" style="width:100%" class="w3-hover-opacity" alt="fx2">
+      <img src="images/fx2.png" style="width:100%" class="w3-hover-opacity" alt="fx2">
     </div>
 
     <div class="w3-col s4">
-      <img src="static/image/fx3.png" style="width:100%" class="w3-hover-opacity" alt="fx3">
+      <img src="images/fx3.png" style="width:100%" class="w3-hover-opacity" alt="fx3">
     </div>
 
-  </div>
+  </div>-->
 
-  <div class="w3-row w3-center">
-    <div class="w3-col s4">
-      <img src="static/image/fx3.png" style="width:100%" class="w3-hover-opacity" alt="The mist over the mountains">
-    </div>
 
-    <div class="w3-col s4">
-      <img src="static/image/fx1.png" style="width:100%" class="w3-hover-opacity" alt="Coffee beans">
-    </div>
-
-    <div class="w3-col s4">
-      <img src="static/image/fx2.png" style="width:100%" class="w3-hover-opacity" alt="Bear closeup">
-    </div>
 
   </div>
 </div>
@@ -90,6 +103,12 @@ body, html {
 		</div>
 	</div>
 </div>
+
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+{% load static %}
+<script src="{% static 'js/instruments.js' %}"></script>
 
 </body>
 </html> 

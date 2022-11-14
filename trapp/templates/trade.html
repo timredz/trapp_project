@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>Trade</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../static/favicon/site.webmanifest">
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
   height: 100%;
   color: #777;
-  line-height: 1.8;
 }
 
 .footer {
@@ -29,9 +34,53 @@ body, html {
 .bottom-menu{
 	background-color: white;
 }
+
+.line {
+		  fill: none;
+		  stroke: #D3D3D3;
+		  stroke-width: 1px;
+		}
+
+.minch{
+	width:100%;
+	float:left;
+	margin:0px 0px 0px 3px;
+}
 .bs{
-	min-height:30px;
-	border:1px solid green;
+	min-height:35px;
+	//border:1px solid green;
+}
+
+.bs-text{
+	text-align: center;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size:14px;
+}
+
+.btn_sell{
+	width: 100%;
+	text-align: left;
+	background-color: rgb(255, 49, 49);
+	color:white;
+}
+
+.btn_buy{
+	width: 100%;
+	text-align: left;
+	background-color: rgb(76, 187, 23);
+	color:white;
+}
+
+.bs-main{
+	width:100%;
+	float:left;
+	margin-top:10px;
+}
+
+#stdout{
+	width:100%;
+	float:left;
 }
 </style>
 </head>
@@ -39,72 +88,103 @@ body, html {
 
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
-  <h3 class="w3-center">ВАЛЮТА</h3>
-  <p class="w3-center"><em>График</em></p>
+	<h3 class="w3-center">USD/RUB</h3>
+	<h3 class="w3-center">61.48</h3>
 
-  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-  <div class="w3-row w3-center">
-    <div class="w3-col s12">
-      <img src="images/candle.png" style="width:100%" class="w3-hover-opacity" alt="fx1">
-    </div>
-  </div>
+
+	<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+	<div id="stdout" class="minch"></div>
   
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	<div class="w3-col s6 bs">
-      
-    </div>
-	
-  </div>
+	<div class="bs-main">
+		<div class="w3-row">
+			<div class="w3-col s4 bs">
+			  <button class="btn_sell w3-button w3-medium w3-padding-small w3-round-large">Sell: 61.5</button>
+			</div>
+			<div class="w3-col s4 bs bs-text">Лучшие</div>
+			<div class="w3-col s4 bs">
+			  <button class="btn_buy w3-button w3-medium w3-padding-small w3-round-large">Buy: 61.45</button>
+			</div>
+		</div>
+		
+		<div class="w3-row">
+			<div class="w3-col s4 bs">
+			  <button class="btn_sell w3-button w3-red w3-hover-pink w3-medium w3-padding-small w3-round-large">Sell: 61.65</button>
+			</div>
+			<div class="w3-col s4 bs bs-text">#5 уровень</div>
+			<div class="w3-col s4 bs">
+			  <button class="btn_buy w3-button w3-green w3-hover-teal w3-medium w3-padding-small w3-round-large">Buy: 61.4</button>
+			</div>
+		</div>
+		
+		<div class="w3-row">
+			<div class="w3-col s4 bs">
+			  <button class="btn_sell w3-button w3-red w3-hover-pink w3-medium w3-padding-small w3-round-large">Sell: 61.75</button>
+			</div>
+			<div class="w3-col s4 bs bs-text">#10 уровень</div>
+			<div class="w3-col s4 bs">
+			  <button class="btn_buy w3-button w3-green w3-hover-teal w3-medium w3-padding-small w3-round-large">Buy: 61.25</button>
+			</div>
+		</div>
+		
+		<div class="w3-row">
+			<div class="w3-col s4 bs">
+			  <button class="btn_sell w3-button w3-red w3-hover-pink w3-medium w3-padding-small w3-round-large">⚡ Sell</button>
+			</div>
+			<div class="w3-col s4 bs bs-text">По рынку</div>
+			<div class="w3-col s4 bs">
+			  <button class="btn_buy w3-button w3-green w3-hover-teal w3-medium w3-padding-small w3-round-large">⚡ Buy</button>
+			</div>
+		</div>
+		
+		<div class="w3-row">
+			<div class="w3-col s4 bs">
+			  <button class="btn_sell w3-button w3-red w3-hover-pink w3-medium w3-padding-small w3-round-large">Sell</button>
+			</div>
+			<div class="w3-col s4 bs bs-text">Any</div>
+			<div class="w3-col s4 bs">
+			  <button class="btn_buy w3-button w3-green w3-hover-teal w3-medium w3-padding-small w3-round-large">Buy</button>
+			</div>
+		</div>
+	</div>
+  
+ 
 
+
+
+  </div>
 </div>
 
 <div class="footer">
 	<div class="w3-row bottom-menu">
-		<div class="w3-col s3">
-			<span class="w3-small"><i class="fa fa-money" aria-hidden="true"></i></span>
-			<span class="w3-small">Валюта</span>
-		</div>
 		<div class="w3-col s3" style="color: coral">
-			<span class="w3-small"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
-			<span class="w3-small">Купить</span>
+			<span class="w3-medium"><i class="fa fa-money" aria-hidden="true"></i></span>
+			<span class="w3-medium">Валюта</span>
+		</div>
+		<div class="w3-col s3">
+			<span class="w3-medium"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+			<span class="w3-medium">Купить</span>
 		</div>
 		<div class="w3-col s3"> 
-			<span class="w3-small"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-			<span class="w3-small">Портфель</span>
+			<span class="w3-medium"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
+			<span class="w3-medium">Портфель</span>
 		</div>
 		<div class="w3-col s3">
-			<span class="w3-small"><i class="fa fa-user" aria-hidden="true"></i></span>
-			<span class="w3-small">Я</span>
+			<span class="w3-medium"><i class="fa fa-user" aria-hidden="true"></i></span>
+			<span class="w3-medium">Я</span>
 		</div>
 	</div>
 </div>
 
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+{% load static %}
+<script src="{% static 'js/candles.js' %}"></script>
+
+<script>
+	{% block content %}
+		draw('{{ticker}}');
+	{% endblock %}
+</script>
 </body>
 </html> 
