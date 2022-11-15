@@ -1,5 +1,44 @@
 from django.db import models
 
+
+class Customers(models.Model):
+    customerID = models.CharField(max_length=36)
+    reg_date = models.BigIntegerField()
+
+
+class Balance(models.Model):
+    customerID = models.CharField(max_length=36)
+    cashin = models.BigIntegerField()
+    cashout = models.BigIntegerField()
+    posvalue = models.BigIntegerField()
+    total_value = models.BigIntegerField()
+
+
+class MyOrders(models.Model):
+    customerID = models.CharField(max_length=36)
+    orderID = models.BigIntegerField(null=True)
+    buysell = models.CharField(max_length=1)
+    price = models.DecimalField(null=True, max_digits=19, decimal_places=6)
+    quantity = models.BigIntegerField()
+    balance = models.BigIntegerField(null=True)
+    value = models.BigIntegerField()
+    entrytime = models.DateTimeField(null=True)
+    expirytime = models.DateTimeField(null=True)
+
+
+class MyTrades(models.Model):
+    customerID = models.CharField(max_length=36)
+    tradeID = models.BigIntegerField()
+    orderID = models.BigIntegerField()
+    buysell = models.CharField(max_length=1)
+    price = models.DecimalField(max_digits=19, decimal_places=6)
+    quantity = models.BigIntegerField()
+    value = models.BigIntegerField()
+    entrytime = models.DateTimeField()
+    expirytime = models.DateTimeField()
+
+
+
 class Instruments(models.Model):
     venue = models.CharField(max_length=36)
     ticker = models.CharField(max_length=36)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Instruments, Orderbook, Candles10min
+from .models import Instruments, Orderbook, Candles10min, Balance
 
 
 class InstrumentsSerializer(serializers.ModelSerializer):
@@ -26,3 +26,9 @@ class CandleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Candles10min
         fields = ('__all__')
+
+
+class BalanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Balance
+        fields = ('total_value', 'posvalue')

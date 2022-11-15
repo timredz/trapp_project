@@ -37,8 +37,10 @@ function draw(ticker, divid="#stdout"){
 
 	d3.json("../candle/"+ticker).then(function(data) {
 
+        ob = data['ob'];
         data = data['candle'];
-		console.log(data);
+        draw_buttons(ob);
+		console.log(ob);
 
 		data.forEach(function(d) {
 		  d.valid_time = parseTime(d.valid_time);
@@ -156,9 +158,78 @@ function draw(ticker, divid="#stdout"){
             .attr("font-weight", "bold")
             .attr("fill", "white");
 
-
-
-
-
 	});
+}
+
+function draw_buttons(ob){
+    var levels = ['Лучшие', '#5 уровень', '#10 уровень', '⚡ По рынку', 'Any'];
+    var buy_prices = [ob['buy'][0]['price'], ob['buy'][4]['price'], ob['buy'][9]['price'], '', ''];
+    var sell_prices = [ob['sell'][0]['price'], ob['sell'][4]['price'], ob['sell'][9]['price'], '', ''];
+
+    const buy_avg = Math.round(ob['buy_avg']*1000)/1000;
+    const sell_avg = Math.round(ob['sell_avg']*1000)/1000;
+    const buy_vol = ob['buy_vol'];
+    const sell_vol = ob['sell_vol'];
+
+
+    var out = '<p>Можно купить $' + buy_vol + 'k за ' + buy_avg + ' руб</p>';
+    out += '<p>Можно продать $' + sell_vol + 'k за ' + sell_avg + ' руб</p>';
+
+    for(let i=0;i<5;i++){
+        out += '<div class="w3-row">';
+        out += '<div class="w3-col s4 bs">';
+        out += '<button class="btn_sell w3-button w3-medium w3-padding-small w3-round-large">Sell '+sell_prices[i]+'</button>';
+        out += '</div>';
+        out += '<div class="w3-col s4 bs bs-text">'+levels[i]+'</div>';
+        out += '<div class="w3-col s4 bs">';
+        out += '<button class="btn_buy w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\'B\', '+buy_prices[i]+')">Buy '+buy_prices[i]+'</button>';
+        out += '</div>';
+        out += '</div>';
+    }
+
+    d3.select("#bs-buttons").html(out);
+
+}
+
+function show_modal(){
+    document.getElementById('id01').style.display='block';
+}
+
+function hide_modal(){
+    document.getElementById('id01').style.display='none';
+}
+
+function fill_order_details(buysell, price){
+    show_modal();
+    d3.select("#price_input").property("value", price);
+}
+
+
+function submit_order(){
+    const price = Number(d3.select("#price_input").property("value"));
+    const quantity = Number(d3.select("#quantity").property("value"));
+    const buysell = 'B';
+
+    console.log({
+        'price': price,
+        'quantity': quantity,
+        'buysell': buysell
+    });
+    /*d3.json("../submit_order", {
+        method: "POST",
+        body: JSON.stringify({
+            customerID: getCookie('customerID'),
+            price: price,
+            quantity: quantity,
+            buysell: busell
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });*/
+    order_sent();
+}
+
+function order_sent(){
+    d3.select("#modal-content").html('<p>Заявка отправлена</p><p><img src="../../static/image/sent.gif" width="320" height="320"></p>');
 }

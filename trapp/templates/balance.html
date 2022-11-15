@@ -82,58 +82,26 @@ body, html {
 	width:100%;
 	float:left;
 }
-input:focus::placeholder {
-  color: transparent;
-}
 </style>
 </head>
 <body>
 
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
-	<h3 class="w3-center">USD/RUB</h3>
 
 	<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
 	<div id="stdout" class="minch"></div>
   
-	<div id="bs-buttons" class="bs-main"></div>
 
 </div>
-
-<div id="id01" class="w3-modal">
-    <div id="modal-content" class="w3-modal-content w3-card-4 w3-animate-bottom w3-panel w3-round-large" style="max-width:600px;min-height:655px;margin:0;margin-right:20px;">
-
-      <div class="w3-center"><br>
-        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-      </div>
-
-      <div class="w3-container" style="margin-bottom:200px;">
-		  <div class="w3-section">
-			  <p>USD/RUB 60.12 (+0.12%)</p>
-			  <input id="price_input" class="w3-input w3-margin-bottom" type="number" placeholder="Укажите цену, ₽" name="price">
-			  <br>
-			  <label>Объем</label>
-			  <input id="quantity" class="w3-input" type="number" name="quantity" value=0 required>
-			  <p><span class="w3-badge w3-grey w3-large" onclick="decrease()">-</span> <span class="w3-badge w3-grey w3-large" onclick="increase()">+</span></p>
-          </div>
-	  </div>
-		<p>Итого: <span id="net_value">0</span> ₽</p>
-		<button class="w3-button w3-block w3-green w3-section w3-padding w3-round-large" onclick="submit_order()">Купить</button>
-
-    </div>
-</div>
-
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
 {% load static %}
-<script src="{% static 'js/candles.js' %}"></script>
 <script src="{% static 'js/customerID.js' %}"></script>
 
 <script>
-	{% block content %}
-		draw('{{ticker}}');
-	{% endblock %}
+	show_balance();
 </script>
 </body>
 </html> 
