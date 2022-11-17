@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Instruments</title>
+<title>Trade</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -12,6 +12,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png">
 <link rel="manifest" href="../../static/favicon/site.webmanifest">
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
@@ -35,14 +36,51 @@ body, html {
 }
 
 .line {
-	fill: none;
-	stroke-width: 1px;
-}
+		  fill: none;
+		  stroke: #D3D3D3;
+		  stroke-width: 1px;
+		}
 
 .minch{
-	width:160px;
+	width:100%;
 	float:left;
 	margin:0px 0px 0px 3px;
+}
+.bs{
+	min-height:35px;
+	//border:1px solid green;
+}
+
+.bs-text{
+	text-align: center;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size:14px;
+}
+
+.btn_sell{
+	width: 100%;
+	text-align: left;
+	background-color: rgb(255, 49, 49);
+	color:white;
+}
+
+.btn_buy{
+	width: 100%;
+	text-align: left;
+	background-color: rgb(76, 187, 23);
+	color:white;
+}
+
+.bs-main{
+	width:100%;
+	float:left;
+	margin-top:10px;
+}
+
+#stdout{
+	width:100%;
+	float:left;
 }
 </style>
 </head>
@@ -50,45 +88,26 @@ body, html {
 
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
-  <h3 class="w3-center">ВАЛЮТА</h3>
-  <br>
+
+	<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+	<h3>Мои сделки</h3>
+	<div id="mytrades" class="minch"></div>
+
+	<h3>Мои заявки</h3>
+	<div id="myorders" class="minch"></div>
   
-  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-  <div id="allfx">
 
-  </div>
 </div>
-
-<div class="footer">
-	<div class="w3-row bottom-menu">
-		<div class="w3-col s3" style="color: coral">
-			<span class="w3-small"><i class="fa fa-money" aria-hidden="true"></i></span>
-			<span class="w3-small">Валюта</span>
-		</div>
-		<div class="w3-col s3">
-			<span class="w3-small"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
-			<span class="w3-small">Купить</span>
-		</div>
-		<div class="w3-col s3"> 
-			<span class="w3-small"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-			<span class="w3-small">Портфель</span>
-		</div>
-		<div class="w3-col s3">
-			<span class="w3-small"><i class="fa fa-user" aria-hidden="true"></i></span>
-			<span class="w3-small">Я</span>
-		</div>
-	</div>
-</div>
-
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
 {% load static %}
-<script src="{% static 'js/instruments.js' %}"></script>
 <script src="{% static 'js/customerID.js' %}"></script>
-<script>
-	register_user();
-</script>
+<script src="{% static 'js/my_trades_orders.js' %}"></script>
 
+<script>
+	get_mytrades();
+	get_myorders();
+</script>
 </body>
 </html> 

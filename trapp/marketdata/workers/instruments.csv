@@ -1,0 +1,9 @@
+venue,ticker,pair,name_en,name_ru,lotsize,minstep
+MOEX,USD000UTSTOM,USD/RUB,US dollar,Доллар,1000,0.0025
+MOEX,EUR_RUB__TOM,EUR/RUB,Euro,Евро,1000,0.0025
+MOEX,CNYRUB_TOM,CNY/RUB,Yuan,Юань,1000,0.0025
+MOEX,USDCNY_TOM,USD/CNY,US dollar/Yuan,Доллар/Юань,1000,0.0025
+MOEX,KZTRUB_TOM,KZT/RUB,Tenge,Тенге,1000,0.0025
+MOEX,HKDRUB_TOM,HKD/RUB,Hongkong dollar,Гонконгский доллар,1000,0.0025
+MOEX,TRYRUB_TOM,TRY/RUB,Lira,Лира,1000,0.0025
+MOEX,EURUSD000TOM,EUR/USD,Euro/US dollar,Евро/Доллар,1000,0.0025

@@ -17,6 +17,7 @@ class Balance(models.Model):
 class MyOrders(models.Model):
     customerID = models.CharField(max_length=36)
     orderID = models.BigIntegerField(null=True)
+    ticker = models.CharField(max_length=36)
     buysell = models.CharField(max_length=1)
     price = models.DecimalField(null=True, max_digits=19, decimal_places=6)
     quantity = models.BigIntegerField()
@@ -30,13 +31,12 @@ class MyTrades(models.Model):
     customerID = models.CharField(max_length=36)
     tradeID = models.BigIntegerField()
     orderID = models.BigIntegerField()
+    ticker = models.CharField(max_length=36)
     buysell = models.CharField(max_length=1)
     price = models.DecimalField(max_digits=19, decimal_places=6)
     quantity = models.BigIntegerField()
     value = models.BigIntegerField()
-    entrytime = models.DateTimeField()
-    expirytime = models.DateTimeField()
-
+    tradetime = models.DateTimeField()
 
 
 class Instruments(models.Model):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Instruments, Orderbook, Candles10min, Balance
+from .models import Instruments, Orderbook, Candles10min, Balance, MyTrades, MyOrders
 
 
 class InstrumentsSerializer(serializers.ModelSerializer):
@@ -32,3 +32,19 @@ class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Balance
         fields = ('total_value', 'posvalue')
+
+
+class MyTradesSerializer(serializers.ModelSerializer):
+    price = serializers.FloatField()
+
+    class Meta:
+        model = MyTrades
+        fields = ('tradeID', 'ticker', 'buysell', 'price', 'quantity', 'tradetime')
+
+
+class MyOrdersSerializer(serializers.ModelSerializer):
+    price = serializers.FloatField()
+
+    class Meta:
+        model = MyOrders
+        fields = ('orderID', 'ticker', 'buysell', 'price', 'quantity', 'balance', 'entrytime')

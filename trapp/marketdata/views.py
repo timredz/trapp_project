@@ -5,13 +5,23 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .workers import instruments_data, candle_and_ob
-from .models import Instruments, Orderbook, Candles10min, Candles1min, Customers, Balance, MyOrders
+from .workers import instruments_data, candle_and_ob, positions
+from .models import Instruments, Orderbook, Candles10min, Candles1min, Customers, Balance, MyOrders, MyTrades
 
 from .serializers import (
-    InstrumentsSerializer, OrderbookSerializer, CandleSerializer, BalanceSerializer
+    MyOrdersSerializer, OrderbookSerializer, CandleSerializer, BalanceSerializer, MyTradesSerializer
 )
 
+ticker_names = {
+	"USD000UTSTOM": "USD/RUB",
+	"EUR_RUB__TOM": "EUR/RUB",
+	"CNYRUB_TOM": "CNY/RUB",
+	"USDCNY_TOM": "USD/CNY",
+	"KZTRUB_TOM": "KZT/RUB",
+	"HKDRUB_TOM": "HKD/TOM",
+	"TRYRUB_TOM": "TRY/RUB",
+	"EURUSD000TOM": "EUR/USD"
+}
 
 
 def index(request):
@@ -26,11 +36,20 @@ def marketdata(request):
 
 def trade(request, ticker):
     template = 'trade.html'
-    return render(request, template, {"ticker": ticker})
+    pair = ticker_names[ticker]
+    result = Candles10min.objects.filter(ticker=ticker).values('ticker', 'pr_close', 'valid_time')
+    result = result.reverse()[0]
+
+    return render(request, template, {"ticker": ticker, "pair": pair, "last": result['pr_close']})
 
 
 def show_balance(request):
     template = 'balance.html'
+    return render(request, template)
+
+
+def ot(request):
+    template = 'orders_trades.html'
     return render(request, template)
 
 
@@ -90,18 +109,66 @@ def submit_order(request):
         price = request.data.get("price")
         quantity = request.data.get("quantity")
         buysell = request.data.get("buysell")
+        ticker = request.data.get("ticker")
+        orderID = int(time.time())
 
         order = MyOrders(
             customerID=customerID,
-            orderID=int(time.time()),
+            orderID=orderID,
+            ticker=ticker,
             price=price,
             quantity=quantity,
             buysell=buysell,
-            balance=quantity,
+            balance=0,
             value=int(price*quantity*1000),
             entrytime=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         )
 
         order.save()
 
+        time.sleep(2)
+        trade = MyTrades(
+            customerID=customerID,
+            tradeID=(orderID % 10**5),
+            orderID=orderID,
+            ticker=ticker,
+            price=price,
+            quantity=quantity,
+            buysell=buysell,
+            value=int(price * quantity * 1000),
+            tradetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        )
+
+        trade.save()
+
         return Response({"order_placed":"true"})
+
+
+@api_view(['POST'])
+def get_my_trades(request):
+    if request.method == 'POST':
+        customerID = request.data.get("customerID")
+
+        result = MyTrades.objects.filter(customerID=customerID).values('tradeID', 'ticker', 'buysell', 'price', 'quantity', 'tradetime')
+        serializer = MyTradesSerializer(result, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+def get_my_orders(request):
+    if request.method == 'POST':
+        customerID = request.data.get("customerID")
+
+        result = MyOrders.objects.filter(customerID=customerID).values('orderID', 'ticker', 'buysell', 'price', 'quantity', 'balance')
+        serializer = MyOrdersSerializer(result, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+def get_position(request):
+    if request.method == 'POST':
+        customerID = request.data.get("customerID")
+
+        result = MyTrades.objects.filter(customerID=customerID).values('tradeID', 'ticker', 'buysell', 'price', 'quantity', 'tradetime')
+        result = positions.get_position(result)
+        return Response(result)

@@ -11,8 +11,16 @@ ticker_names = {
 
 var tickers = ["USD000UTSTOM", "EUR_RUB__TOM", "CNYRUB_TOM", "USDCNY_TOM", "KZTRUB_TOM", "HKDRUB_TOM", "TRYRUB_TOM", "EURUSD000TOM"];
 var nicks = ["Доллар", "Евро", "Юань", "Доллар/Юань", "Тенге", "Гонконг доллар", "Лира", "Евро/Доллар"];
-var divids = ["#stdout1", "#stdout2", "#stdout3", "#stdout4", "#stdout5", "#stdout6", "#stdout7", "#stdout8"];
+var divids = ["stdout1", "stdout2", "stdout3", "stdout4", "stdout5", "stdout6", "stdout7", "stdout8"];
 var images = ["usd", "eur", "cny", "usdcny", "kzt", "hkd", "try", "eurusd"];
+
+for(var i=0;i<tickers.length;i++){
+    d3.select('#allfx').append('div')
+        .attr("class", "minch")
+        .append('a')
+        .attr("id", divids[i])
+        .attr("href", "trade/"+tickers[i]);
+}
 
 
 function draw(){
@@ -27,7 +35,6 @@ function draw(){
 			.range(['rgb(246, 53, 56)', 'rgb(246, 53, 56)', 'rgb(191, 64, 69)', 'rgb(139, 68, 78)',
 			'rgb(65, 69, 84)', 'rgb(53, 118, 78)', 'rgb(47, 158, 79)', 'rgb(48, 204, 90)', 'rgb(48, 204, 90)']);
 
-
 	d3.json("instruments").then(function(alldata) {
 
         const x_offset = 10;
@@ -41,7 +48,7 @@ function draw(){
               d.valid_time = parseTime(d.valid_time);
             });
 
-            var svg = d3.select(divids[pos]).append("svg")
+            var svg = d3.select("#"+divids[pos]).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")

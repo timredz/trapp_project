@@ -1,3 +1,14 @@
+ticker_names = {
+	"USD000UTSTOM": "USD/RUB",
+	"EUR_RUB__TOM": "EUR/RUB",
+	"CNYRUB_TOM": "CNY/RUB",
+	"USDCNY_TOM": "USD/CNY",
+	"KZTRUB_TOM": "KZT/RUB",
+	"HKDRUB_TOM": "HKD/TOM",
+	"TRYRUB_TOM": "TRY/RUB",
+	"EURUSD000TOM": "EUR/USD"
+}
+
 function makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -68,6 +79,44 @@ function show_balance(){
         out += '<p>Стоимость позиции: ' + data['posvalue'] + ' руб</p>';
 
         d3.select("#stdout").html(out);
+    });
+
+}
+
+function show_position(){
+
+    d3.json("position", {
+        method: "POST",
+        body: JSON.stringify({
+            customerID: getCookie('customerID')
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(function(data) {
+        console.log(data);
+        var table_header = '<table id="rates" class="w3-table w3-striped w3-bordered w3-small" style="width:100%;">' +
+			'<thead>' +
+			  //'<tr style="background-color: #ff0508;color:white" >' +
+			  '<tr class="w3-light-grey">' +
+				'<th style="text-align: left">TICKER</th>' +
+				'<th style="text-align: left">POSITION</th>' +
+			  '</tr>' +
+			'</thead>';
+
+		var table_content = '';
+		for(var i=0;i<data.length;i++){
+			 table_content = table_content +
+			 '<tr class="chg">' +
+			  '<td class="ticker" style="text-align: left">' + ticker_names[data[i]['ticker']] + '</td>' +
+			  '<td style="text-align: left">' + data[i]['pos'] + '</td>' +
+			 '</tr>';
+		}
+
+		table_end = '</table>' +
+					'</div>';
+
+		d3.select("#myposition").html(table_header+table_content+table_end);
     });
 
 }
