@@ -19,7 +19,7 @@ C1 = pd.read_csv('candles1min.csv')
 engine = bdengine()
 with engine.begin() as conn:
     I.to_sql('marketdata_instruments', conn, index=False, if_exists="append")
-    #O.to_sql('marketdata_orderbook', conn, index=False, if_exists="append")
-    #C10.to_sql('marketdata_candles10min', conn, index=False, if_exists="append")
+    O.to_sql('marketdata_orderbook', conn, index=False, if_exists="append")
+    C10.to_sql('marketdata_candles10min', conn, index=False, if_exists="append")
     C1.to_sql('marketdata_candles1min', conn, index=False, if_exists="append")
     

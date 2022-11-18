@@ -4,146 +4,46 @@
 <title>Trade</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png">
-<link rel="manifest" href="../../static/favicon/site.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/svg.css' %}">
 
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
-body, html {
-  height: 100%;
-  color: #777;
-}
-
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   //background-color: coral;
-   color: grey;
-   text-align: center;
-   border-top: 3px solid #F8F8F8;
-}
-
-.bottom-menu{
-	background-color: white;
-}
-
-.line {
-		  fill: none;
-		  stroke: #D3D3D3;
-		  stroke-width: 1px;
-		}
-
-.minch{
-	width:100%;
-	float:left;
-	margin:0px 0px 0px 3px;
-}
-.bs{
-	min-height:35px;
-	//border:1px solid green;
-}
-
-.bs-text{
-	text-align: center;
-	padding-top: 5px;
-	font-weight: bold;
-	font-size:14px;
-}
-
-.btn_sell{
-	width: 100%;
-	text-align: left;
-	background-color: rgb(255, 49, 49);
-	color:white;
-}
-
-.btn_buy{
-	width: 100%;
-	text-align: left;
-	background-color: rgb(76, 187, 23);
-	color:white;
-}
-
-.bs-main{
-	width:100%;
-	float:left;
-	margin-top:10px;
-}
-
-#stdout{
-	width:100%;
-	float:left;
-}
-input:focus::placeholder {
-  color: transparent;
-}
-</style>
 </head>
 <body>
+{% csrf_token %}
 {% block content %}
 
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
 	<h3 class="w3-center">{{pair}}</h3>
 
-	<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
 	<div id="stdout" class="minch"></div>
   
 	<div id="bs-buttons" class="bs-main"></div>
 
 </div>
+{% include "modals.html" %}
 
-<div id="id01" class="w3-modal">
-    <div id="modal-content" class="w3-modal-content w3-card-4 w3-animate-bottom w3-panel w3-round-large" style="max-width:600px;min-height:655px;margin:0;margin-right:20px;">
+{% endblock %}
 
-      <div class="w3-center"><br>
-        <span onclick="hide_modal('id01')" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-      </div>
-
-      <div class="w3-container" style="margin-bottom:200px;">
-		  <div class="w3-section">
-			  <p>{{pair}}</p>
-			  <p>Последняя цена: {{last}}</p>
-			  <input id="price_input" class="w3-input w3-margin-bottom" type="number" placeholder="Укажите цену, ₽" name="price">
-			  <br>
-			  <label>Объем</label>
-			  <input id="quantity" class="w3-input" type="number" name="quantity" value=0 required>
-			  <p><span class="w3-badge w3-grey w3-large" onclick="decrease()">-</span> <span class="w3-badge w3-grey w3-large" onclick="increase()">+</span></p>
-          </div>
-	  </div>
-		<p>Итого: <span id="net_value">0</span> ₽</p>
-		<div id="submit_button_type"></div>
-    </div>
-</div>
-
-<div id="id02" class="w3-modal">
-    <div id="modal-content2" class="w3-modal-content w3-card-4 w3-animate-bottom w3-panel w3-round-large" style="max-width:600px;min-height:655px;margin:0;margin-right:20px;">
-		<p>Заявка отправлена</p>
-    	<span onclick="hide_modal('id02')" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-    	<p><img src="../../static/image/sent.gif" width="320" height="320"></p>
-    </div>
-</div>
-
+{% include "bottom-menu.html" %}
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
-
-{% load static %}
 <script src="{% static 'js/candles.js' %}"></script>
 <script src="{% static 'js/customerID.js' %}"></script>
 
 <script>
-
 	draw('{{ticker}}');
-
 </script>
-{% endblock %}
+
 </body>
 </html> 

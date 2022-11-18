@@ -9,3 +9,5 @@ migrations/
 
 static/
 qlogs/
+
+settings.py

@@ -1,0 +1,30 @@
+<div id="id01" class="w3-modal">
+    <div id="modal-content" class="w3-modal-content w3-card-4 w3-animate-bottom w3-panel w3-round-large" style="max-width:600px;min-height:655px;margin:0;margin-right:20px;">
+
+      <div class="w3-center"><br>
+        <span onclick="hide_modal('id01')" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+      </div>
+
+      <div class="w3-container" style="margin-bottom:200px;">
+		  <div class="w3-section">
+			  <p>{{pair}}</p>
+			  <p>Последняя цена: {{last}}</p>
+			  <input id="price_input" class="w3-input w3-margin-bottom" type="number" placeholder="Укажите цену, ₽" name="price">
+			  <br>
+			  <label>Объем</label>
+			  <input id="quantity" class="w3-input" type="number" name="quantity" value=0 required>
+			  <p><span class="w3-badge w3-grey w3-large" onclick="decrease()">-</span> <span class="w3-badge w3-grey w3-large" onclick="increase()">+</span></p>
+          </div>
+	  </div>
+		<p>Итого: <span id="net_value">0</span> ₽</p>
+		<div id="submit_button_type"></div>
+    </div>
+</div>
+
+<div id="id02" class="w3-modal">
+    <div id="modal-content2" class="w3-modal-content w3-card-4 w3-panel w3-round-large" style="max-width:600px;min-height:655px;margin:0;margin-right:20px;">
+		<p>Заявка отправлена</p>
+    	<span onclick="hide_modal('id02')" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+    	<p><img src="../../static/image/sent.gif" width="320" height="320"></p>
+    </div>
+</div>

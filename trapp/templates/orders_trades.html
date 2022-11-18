@@ -4,104 +4,39 @@
 <title>Trade</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="apple-touch-icon" sizes="180x180" href="../../static/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../static/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../static/favicon/favicon-16x16.png">
-<link rel="manifest" href="../../static/favicon/site.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/svg.css' %}">
 
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
-body, html {
-  height: 100%;
-  color: #777;
-}
-
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   //background-color: coral;
-   color: grey;
-   text-align: center;
-   border-top: 3px solid #F8F8F8;
-}
-
-.bottom-menu{
-	background-color: white;
-}
-
-.line {
-		  fill: none;
-		  stroke: #D3D3D3;
-		  stroke-width: 1px;
-		}
-
-.minch{
-	width:100%;
-	float:left;
-	margin:0px 0px 0px 3px;
-}
-.bs{
-	min-height:35px;
-	//border:1px solid green;
-}
-
-.bs-text{
-	text-align: center;
-	padding-top: 5px;
-	font-weight: bold;
-	font-size:14px;
-}
-
-.btn_sell{
-	width: 100%;
-	text-align: left;
-	background-color: rgb(255, 49, 49);
-	color:white;
-}
-
-.btn_buy{
-	width: 100%;
-	text-align: left;
-	background-color: rgb(76, 187, 23);
-	color:white;
-}
-
-.bs-main{
-	width:100%;
-	float:left;
-	margin-top:10px;
-}
-
-#stdout{
-	width:100%;
-	float:left;
-}
-</style>
 </head>
 <body>
 
-<!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
 
-	<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-	<h3>Мои сделки</h3>
-	<div id="mytrades" class="minch"></div>
-
 	<h3>Мои заявки</h3>
-	<div id="myorders" class="minch"></div>
+	<div id="myorders"></div>
+
+	<h3>Мои сделки</h3>
+	<div id="mytrades"></div>
+
   
 
 </div>
 
-<script src="https://d3js.org/d3.v7.min.js"></script>
+{% include "bottom-menu.html" %}
+
 
 {% load static %}
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="{% static 'js/customerID.js' %}"></script>
 <script src="{% static 'js/my_trades_orders.js' %}"></script>
 
