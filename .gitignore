@@ -8,5 +8,7 @@ db.sqlite3
 migrations/
 
 static/
+
 settings.py
 upload_mdata.py
+

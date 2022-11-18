@@ -1,0 +1,75 @@
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  color: #777;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   //background-color: coral;
+   color: grey;
+   text-align: center;
+   border-top: 3px solid #F8F8F8;
+}
+
+.bottom-menu{
+	background-color: white;
+}
+
+
+.minch{
+	width:160px;
+	float:left;
+	margin:0px 0px 0px 3px;
+}
+
+p.bottom-menu-margin{
+	margin-top:0px;
+	margin-bottom:0px;
+	font-size:14px;
+	font-weight:bold;
+}
+
+
+//trade html
+.bs-text{
+	text-align: center;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size:14px;
+}
+
+.btn_sell{
+	width: 100%;
+	text-align: left;
+	background-color: rgb(255, 49, 49);
+	color:white;
+}
+
+.btn_buy{
+	width: 100%;
+	text-align: left;
+	background-color: rgb(76, 187, 23);
+	color:white;
+}
+
+.bs-main{
+	width:100%;
+	float:left;
+	margin-top:10px;
+}
+
+#stdout{
+	width:100%;
+	float:left;
+}
+input:focus::placeholder {
+  color: transparent;
+}
+
+a{
+    text-decoration:none;
+}

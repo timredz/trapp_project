@@ -181,12 +181,12 @@ function draw_buttons(ticker, ob){
     out += '</div>';
 
     for(let i=0;i<5;i++){
-        out += '<div class="w3-row">';
+        out += '<div class="w3-row" style="min-height:35px">';
         out += '<div class="w3-col s4">';
         out += '<button class="btn_sell w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\''+ticker+'\',\'S\', '+sell_prices[i]+', \''+levels_code[i]+'\')">'+sell_prices[i]+'</button>';
         out += '</div>';
-        out += '<div class="w3-col s4 bs bs-text">'+levels[i]+'</div>';
-        out += '<div class="w3-col s4 bs">';
+        out += '<div class="w3-col s4 bs-text">'+levels[i]+'</div>';
+        out += '<div class="w3-col s4">';
         out += '<button class="btn_buy w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\''+ticker+'\', \'B\', '+buy_prices[i]+',\''+levels_code[i]+'\')">'+buy_prices[i]+'</button>';
         out += '</div>';
         out += '</div>';

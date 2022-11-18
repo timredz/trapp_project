@@ -4,86 +4,35 @@
 <title>Instruments</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
-<link rel="manifest" href="../../static/favicon/site.webmanifest">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
-body, html {
-  height: 100%;
-  color: #777;
-}
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/svg.css' %}">
 
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   //background-color: coral;
-   color: grey;
-   text-align: center;
-   border-top: 3px solid #F8F8F8;
-}
 
-.bottom-menu{
-	background-color: white;
-}
-
-.line {
-	fill: none;
-	stroke-width: 1px;
-}
-
-.minch{
-	width:160px;
-	float:left;
-	margin:0px 0px 0px 3px;
-}
-</style>
 </head>
 <body>
+{% csrf_token %}
 
-<!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container" id="portfolio">
-  <h3 class="w3-center">ВАЛЮТА</h3>
+  <h4 class="w3-center">ВАЛЮТА</h4>
   <br>
   
-  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-  <div id="allfx">
+  <div id="allfx"></div>
 
-  </div>
 </div>
 
-<div class="footer">
-	<div class="w3-row bottom-menu">
-		<div class="w3-col s3" style="color: coral">
-			<span class="w3-small"><i class="fa fa-money" aria-hidden="true"></i></span>
-			<span class="w3-small">Валюта</span>
-		</div>
-		<div class="w3-col s3">
-			<span class="w3-small"><i class="fa fa-line-chart" aria-hidden="true"></i></span>
-			<span class="w3-small">Купить</span>
-		</div>
-		<div class="w3-col s3"> 
-			<span class="w3-small"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-			<span class="w3-small">Портфель</span>
-		</div>
-		<div class="w3-col s3">
-			<span class="w3-small"><i class="fa fa-user" aria-hidden="true"></i></span>
-			<span class="w3-small">Я</span>
-		</div>
-	</div>
-</div>
-
+{% include "bottom-menu.html" %}
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
-
-{% load static %}
 <script src="{% static 'js/instruments.js' %}"></script>
 <script src="{% static 'js/customerID.js' %}"></script>
 <script>
