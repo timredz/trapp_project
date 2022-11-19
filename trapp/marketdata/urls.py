@@ -4,8 +4,8 @@ from . import views
 app_name = 'marketdata'
 
 urlpatterns = [
-    path('', views.index),
-    path('marketdata/', views.marketdata, name='index'),
+    path('', views.index, name='index'),
+    #path('marketdata/', views.marketdata),
     path('instruments', views.get_instruments),
     path('trade/<slug:ticker>', views.trade),
     path('candle/<slug:ticker>', views.get_candle_by_ticker),

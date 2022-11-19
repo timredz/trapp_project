@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .workers import instruments_data, candle_and_ob, positions
 from .models import Instruments, Orderbook, Candles10min, Candles1min, Customers, Balance, MyOrders, MyTrades
+from django.contrib.auth.decorators import login_required
+
 from django.core.mail import send_mail
 
 from .serializers import (
@@ -24,7 +26,7 @@ ticker_names = {
 	"EURUSD000TOM": "EUR/USD"
 }
 
-
+@login_required
 def index(request):
     template = 'index.html'
     return render(request, template)
@@ -32,7 +34,7 @@ def index(request):
 
 # any output on page
 def marketdata(request):
-    send_mail('subj', 'message', 'yatimtimych@yandex.ru', ['tredzhepov@gmail.com'], fail_silently=False)
+    send_mail('subj', 'message', 'fxworldteam@yandex.ru', ['tredzhepov@gmail.com'], fail_silently=False)
     return HttpResponse('Any text')
 
 

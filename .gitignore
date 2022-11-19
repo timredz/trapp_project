@@ -10,5 +10,6 @@ migrations/
 static/
 
 settings.py
+
 upload_mdata.py
 
