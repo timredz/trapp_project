@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .workers import instruments_data, candle_and_ob, positions
 from .models import Instruments, Orderbook, Candles10min, Candles1min, Customers, Balance, MyOrders, MyTrades
+from django.core.mail import send_mail
 
 from .serializers import (
     MyOrdersSerializer, OrderbookSerializer, CandleSerializer, BalanceSerializer, MyTradesSerializer
@@ -31,6 +32,7 @@ def index(request):
 
 # any output on page
 def marketdata(request):
+    send_mail('subj', 'message', 'yatimtimych@yandex.ru', ['tredzhepov@gmail.com'], fail_silently=False)
     return HttpResponse('Any text')
 
 
