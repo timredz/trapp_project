@@ -10,9 +10,10 @@ ticker_names = {
 }
 
 function draw(ticker, divid="#stdout"){
+    var x_width = Math.min(window.innerWidth, 800);
 	var margin = {top: 0, right: 60, bottom: 0, left: 0},
-		width = 360 - margin.left - margin.right,
-		height = 230 - margin.top - margin.bottom;
+		width = x_width - margin.left - margin.right,
+		height = x_width*0.67 - margin.top - margin.bottom;
 
 	var x = d3.scaleBand().range([0, width-30]).padding(0.2);
 	var y = d3.scaleLinear().range([0.8*height, 0]);

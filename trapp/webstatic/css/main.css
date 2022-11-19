@@ -4,12 +4,17 @@ body, html {
   color: #777;
 }
 
+#main-screen{
+    width:100;
+    margin: 0 auto;
+    max-width:900px;
+}
+
 .footer {
    position: fixed;
    left: 0;
    bottom: 0;
    width: 100%;
-   //background-color: coral;
    color: grey;
    text-align: center;
    border-top: 3px solid #F8F8F8;
