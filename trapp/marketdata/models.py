@@ -3,15 +3,18 @@ from django.db import models
 
 class Customers(models.Model):
     customerID = models.CharField(max_length=36)
+    name = models.CharField(max_length=36)
+    email = models.CharField(max_length=36)
+    phone = models.CharField(max_length=36)
     reg_date = models.BigIntegerField()
 
 
 class Balance(models.Model):
     customerID = models.CharField(max_length=36)
-    cashin = models.BigIntegerField()
-    cashout = models.BigIntegerField()
-    posvalue = models.BigIntegerField()
-    total_value = models.BigIntegerField()
+    currency = models.CharField(max_length=36)
+    quantity = models.BigIntegerField()
+    quantity_rub = models.BigIntegerField()
+
 
 
 class MyOrders(models.Model):

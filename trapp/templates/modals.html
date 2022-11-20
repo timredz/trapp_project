@@ -1,4 +1,5 @@
 <div id="id01" class="w3-modal">
+{% csrf_token %}
     <div id="modal-content" class="w3-modal-content w3-card-4 w3-animate-bottom w3-panel w3-round-large" style="max-width:600px;min-height:655px;margin:0;margin-right:20px;">
 
       <div class="w3-center"><br>
@@ -7,13 +8,17 @@
 
       <div class="w3-container" style="margin-bottom:200px;">
 		  <div class="w3-section">
-			  <p>{{pair}}</p>
+			  <p>{{pair.name}}</p>
 			  <p>Последняя цена: {{last}}</p>
 			  <input id="price_input" class="w3-input w3-margin-bottom" type="number" placeholder="Укажите цену, ₽" name="price">
 			  <br>
 			  <label>Объем</label>
 			  <input id="quantity" class="w3-input" type="number" name="quantity" value=0 required>
-			  <p><span class="w3-badge w3-grey w3-large" onclick="decrease()">-</span> <span class="w3-badge w3-grey w3-large" onclick="increase()">+</span></p>
+			  <p>
+				  <span class="w3-badge w3-grey w3-large" onclick="decrease()">-</span>
+				  <span class="w3-badge w3-grey w3-large" onclick="increase()">+</span>
+				  <span id="max_lots"></span>
+			  </p>
           </div>
 	  </div>
 		<p>Итого: <span id="net_value">0</span> ₽</p>
