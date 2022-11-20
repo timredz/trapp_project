@@ -4,6 +4,8 @@ https://fxworld.ru/
 Приложение для трейдинга. Имитирует торговлю на бирже
 (web адаптированный под mobile phone)
 
+![alt text](https://github.com/timredz/trapp_project/blob/03833dcf32763ff55a016ea099f97752843c96da/fxworld_promo.png)
+
 Данные идут онлайн от Биржи
 
 Функциональность приложения включает:
