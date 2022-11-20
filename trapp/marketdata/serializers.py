@@ -31,7 +31,7 @@ class CandleSerializer(serializers.ModelSerializer):
 class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Balance
-        fields = ('total_value', 'posvalue')
+        fields = ('currency', 'quantity')
 
 
 class MyTradesSerializer(serializers.ModelSerializer):

@@ -9,6 +9,12 @@ ticker_names = {
 	"EURUSD000TOM": "EUR/USD"
 }
 
+fx_symbols = {
+    "USD":"$",
+    "EUR":"€",
+    "RUB":"₽"
+}
+
 function makeid(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -57,7 +63,13 @@ function register_user(){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ "customerID": customerID, "reg_date": reg_date })
+            body: JSON.stringify({
+                "customerID": customerID,
+                "name": "Tim",
+                "phone": "+7945879124",
+                "email": "fxworld@ya.ru",
+                "reg_date": reg_date }
+            )
         })
     }
 }
@@ -75,10 +87,32 @@ function show_balance(){
         }
     }).then(function(data) {
         console.log(data);
-        var out = '<p>Баланс: ' + data['total_value'] + ' руб.';
-        out += '<p>Стоимость позиции: ' + data['posvalue'] + ' руб</p>';
 
-        d3.select("#stdout").html(out);
+        var table_header = '<h4>Портфель</h4><br><table id="rates" class="w3-table w3-large" style="width:100%;">' +
+			'<thead>' +
+			  //'<tr style="background-color: #ff0508;color:white" >' +
+			  '<tr class="w3-light-grey">' +
+				'<th style="text-align: left"></th>' +
+				'<th style="text-align: left">Валюта</th>' +
+				'<th style="text-align: left">Кол-во</th>' +
+			  '</tr>' +
+			'</thead>';
+
+		var table_content = '';
+		var assets = ['RUB', 'USD', 'EUR'];
+		for(var i=0;i<assets.length;i++){
+			 table_content = table_content +
+			 '<tr class="chg">' +
+			  '<td class="ticker" style="text-align: left"><img src="../../static/image/'+assets[i]+'.png" border=3 height=50 width=50></img></td>' +
+			  '<td class="ticker" style="text-align: left;padding-top:20px">' + assets[i] + '</td>' +
+			  '<td style="text-align: left;padding-top:20px">' + data[assets[i]] + ' ' + fx_symbols[assets[i]] + '</td>' +
+			 '</tr>';
+		}
+
+		table_end = '</table>' +
+					'</div>';
+
+		d3.select("#myposition").html(table_header+table_content+table_end);
     });
 
 }

@@ -9,8 +9,21 @@ ticker_names = {
 	"EURUSD000TOM": "EUR/USD"
 }
 
+fx_dict = {
+	"USD000UTSTOM": {"name": "USD/RUB", "base": "RUB", "asset": "USD", "lot": 1000, "symbol": "$"},
+	"EUR_RUB__TOM": {"name": "EUR/RUB", "base": "RUB", "asset": "EUR", "lot": 1000, "symbol": "€"},
+	"CNYRUB_TOM": {"name": "CNY/RUB", "base": "RUB", "asset": "CNY", "lot": 1000, "symbol": "¥"},
+	"USDCNY_TOM": {"name": "USD/CNY", "base": "CNY", "asset": "USD", "lot": 1000, "symbol": "$"},
+	"KZTRUB_TOM": {"name": "KZT/RUB", "base": "RUB", "asset": "KZT", "lot": 1000, "symbol": "₸"},
+	"HKDRUB_TOM": {"name": "HKD/RUB", "base": "RUB", "asset": "HKD", "lot": 1000, "symbol": "HK$"},
+	"TRYRUB_TOM": {"name": "TRY/RUB", "base": "RUB", "asset": "TRY", "lot": 1000, "symbol": "₤"},
+	"EURUSD000TOM": {"name": "EUR/USD", "base": "USD", "asset": "EUR", "lot": 1000, "symbol": "€"},
+}
+
+
 function draw(ticker, divid="#stdout"){
-    var x_width = Math.min(window.innerWidth, 800);
+    //var x_width = Math.min(window.innerWidth, 800);
+    var x_width = 360;
 	var margin = {top: 0, right: 60, bottom: 0, left: 0},
 		width = x_width - margin.left - margin.right,
 		height = x_width*0.67 - margin.top - margin.bottom;
@@ -162,10 +175,10 @@ function draw(ticker, divid="#stdout"){
 }
 
 function draw_buttons(ticker, ob){
-    var levels = ['Лучшие', '#5 уровень', '#10 уровень', '⚡ По рынку', 'Any'];
-    var levels_code = ['bbo', '5', '10', 'market', 'limit'];
-    var buy_prices = [ob['buy'][0]['price'], ob['buy'][4]['price'], ob['buy'][9]['price'], '0', '0'];
-    var sell_prices = [ob['sell'][0]['price'], ob['sell'][4]['price'], ob['sell'][9]['price'], '0', '0'];
+    var levels = ['⚡ По рынку', 'Лучшая цена', '#5 уровень', '#10 уровень', 'Своя цена'];
+    var levels_code = ['market', 'bbo', '5', '10', 'limit'];
+    var buy_prices = ['0', ob['buy'][0]['price'], ob['buy'][4]['price'], ob['buy'][9]['price'], '0'];
+    var sell_prices = ['0', ob['sell'][0]['price'], ob['sell'][4]['price'], ob['sell'][9]['price'], '0'];
 
     const buy_avg = Math.round(ob['buy_avg']*1000)/1000;
     const sell_avg = Math.round(ob['sell_avg']*1000)/1000;
@@ -176,19 +189,19 @@ function draw_buttons(ticker, ob){
     //var out = '<p>Можно купить $' + buy_vol + 'k за ' + buy_avg + ' руб</p>';
     //out += '<p>Можно продать $' + sell_vol + 'k за ' + sell_avg + ' руб</p>';
     var out = '<div class="w3-row">';
-        out +=     '<div class="w3-col s4 bs"><b>Продать</b></div>';
-        out +=     '<div class="w3-col s4 bs"></div>';
-        out +=     '<div class="w3-col s4 bs"><b>Купить</b></div>';
+        out +=     '<div class="w3-col s3 bs w3-center"><b>Продать</b></div>';
+        out +=     '<div class="w3-col s6 bs w3-center">Тип заявки</div>';
+        out +=     '<div class="w3-col s3 bs w3-center"><b>Купить</b></div>';
     out += '</div>';
 
     for(let i=0;i<5;i++){
         out += '<div class="w3-row" style="min-height:35px">';
-        out += '<div class="w3-col s4">';
-        out += '<button class="btn_sell w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\''+ticker+'\',\'S\', '+sell_prices[i]+', \''+levels_code[i]+'\')">'+sell_prices[i]+'</button>';
+        out += '<div class="w3-col s3">';
+        out += '<button class="btn_sell w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\''+ticker+'\',\'S\', '+sell_prices[i]+', \''+levels_code[i]+'\', '+sell_prices[1]+')">'+sell_prices[i]+'</button>';
         out += '</div>';
-        out += '<div class="w3-col s4 bs-text">'+levels[i]+'</div>';
-        out += '<div class="w3-col s4">';
-        out += '<button class="btn_buy w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\''+ticker+'\', \'B\', '+buy_prices[i]+',\''+levels_code[i]+'\')">'+buy_prices[i]+'</button>';
+        out += '<div class="w3-col s6 bs-text w3-center">'+levels[i]+'</div>';
+        out += '<div class="w3-col s3">';
+        out += '<button class="btn_buy w3-button w3-medium w3-padding-small w3-round-large" onclick="fill_order_details(\''+ticker+'\', \'B\', '+buy_prices[i]+',\''+levels_code[i]+'\', '+sell_prices[1]+')">'+buy_prices[i]+'</button>';
         out += '</div>';
         out += '</div>';
     }
@@ -206,47 +219,71 @@ function hide_modal(id){
     d3.select("#price_input").attr('disabled', null);
 }
 
-function fill_order_details(ticker, buysell, price, lvl){
+function fill_order_details(ticker, buysell, price, lvl, margin_price){
     show_modal('id01');
-    if(buysell=='B'){
-        var out = '<button class="w3-button w3-block w3-green w3-section w3-padding w3-round-large" onclick="submit_order(\''+ticker+'\', \'B\')">Купить</button>';
-        d3.select("#submit_button_type").html(out);
-    }else if(buysell=='S'){
-        var out = '<button class="w3-button w3-block w3-red w3-section w3-padding w3-round-large" onclick="submit_order(\''+ticker+'\', \'S\')">Продать</button>';
-        d3.select("#submit_button_type").html(out);
-    }
+    const pair = fx_dict[ticker];
+    d3.json("../get_balance", {
+        method: "POST",
+        body: JSON.stringify({
+            customerID: getCookie('customerID')
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            'X-CSRFToken': getCookie('csrftoken'),
+        }
+    }).then(function(data) {
+        var max_lots = 0;
+        if(buysell=='B'){
+            max_lots = Math.floor(data[pair['base']]/margin_price/1000);
+            var out = '<button class="w3-button w3-block w3-green w3-section w3-padding w3-round-large" onclick="submit_order(\''+ticker+'\', \'B\', \''+max_lots+'\')">Купить</button>';
+            d3.select("#submit_button_type").html(out);
+        }else if(buysell=='S'){
+            max_lots = Math.floor(data[pair['asset']]/1000);
+            var out = '<button class="w3-button w3-block w3-red w3-section w3-padding w3-round-large" onclick="submit_order(\''+ticker+'\', \'S\', \''+max_lots+'\')">Продать</button>';
+            d3.select("#submit_button_type").html(out);
+        }
 
-    if(lvl=='market'){
-        d3.select("#price_input").property("value", "");
-        d3.select("#price_input").property("placeholder", "Цена по рынку");
-        d3.select("#price_input").attr('disabled', true);
-    }else if(lvl=='limit'){
+        if(lvl=='market'){
+            d3.select("#price_input").property("value", "");
+            d3.select("#price_input").property("placeholder", "Цена по рынку");
+            d3.select("#price_input").attr('disabled', true);
+        }else if(lvl=='limit'){
 
-    }else{
-        d3.select("#price_input").property("value", price);
-    }
+        }else{
+            d3.select("#price_input").property("value", price);
+        }
+
+
+        d3.select("#max_lots").html("1 лот = 1000 "+pair['symbol']+"<br>Доступно: "+max_lots);
+    });
+
 }
 
 
-function submit_order(ticker, buysell){
+function submit_order(ticker, buysell, max_lots){
     const price = Number(d3.select("#price_input").property("value"));
     const quantity = Number(d3.select("#quantity").property("value"));
-
-    d3.json("../submit_order", {
-        method: "POST",
-        body: JSON.stringify({
-            customerID: getCookie('customerID'),
-            ticker: ticker,
-            price: price,
-            quantity: quantity,
-            buysell: buysell
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-    hide_modal('id01');
-    order_sent();
+    if(quantity>max_lots){
+        alert('Недостаточно средств. Максимум ' + max_lots);
+    }else if(quantity==0){
+        alert('Укажите кол-во лотов');
+    }else{
+        d3.json("../submit_order", {
+            method: "POST",
+            body: JSON.stringify({
+                customerID: getCookie('customerID'),
+                ticker: ticker,
+                price: price,
+                quantity: quantity,
+                buysell: buysell
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+        hide_modal('id01');
+        order_sent();
+    }
 }
 
 function order_sent(){
