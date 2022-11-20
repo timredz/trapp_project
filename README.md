@@ -1,31 +1,49 @@
-git clone ...
+FXWorld
+https://fxworld.ru/
 
-Устанавливаем на компе postgres, создаем user, задаем пароль, grant all privileges, создаем db (у меня пароль, user, db - trapp)
+Приложение для трейдинга. Имитирует торговлю на бирже
+(web адаптированный под mobile phone)
 
-в директории trapp_project/trapp/trapp создать файл .env, содержание:
-    DB_ENGINE=django.db.backends.postgresql
-    DB_NAME=trapp
-    POSTGRES_USER=trapp
-    POSTGRES_PASSWORD=trapp
-    DB_HOST=127.0.0.1
-    DB_PORT=5432
-    
-находясь в директории trapp_project установить venv:
-    python -m venv venv
+Данные идут онлайн от Биржи
 
-Запустить venv:
-    . venv/bin/activate (linux)
-    source venv/Scripts/activate (winda)
-    
-pip install > requirements.txt
+Функциональность приложения включает:
 
-переходим в trapp_project/trapp:
-    python manage.py makemigrations
-    python manage.py migrate (создает все таблицы в базе, таблицы надо будет заполнить конечно)
-    
-    python manage.py runserver (запускаем сервак)
-    
-    Переходим в браузер, набираем 127.0.0.1:8000 должна открыться стартовая страница
+Онлайн котировки валютных инструментов, достуна инфа по OrderBook
+График цен (candles)
+Подача заявок онлайн
+Полезные подсказки прям в форме подаче заявок
+Прогнозирование цен на основе продвинутых ML-моделей
 
+Deployment
+Склонировать репозиторий
 
- 
+Установить базу данных и прописать реквизиты подключения в файле настроек trapp_project/trapp/trapp.env.
+Пример содержания файла настроек (postgresql):
+
+DB_ENGINE=django.db.backends.postgresql DB_NAME=db_name POSTGRES_USER=db_user POSTGRES_PASSWORD=db_password DB_HOST=127.0.0.1 DB_PORT=5432
+
+Находясь в директории trapp_project установить venv:
+
+python -m venv venv
+
+Запустить venv: . venv/bin/activate (linux) source venv/Scripts/activate (winda)
+
+Установить зависимости:
+
+pip install -r requirements.txt
+
+Перейти в trapp_project/trapp и выполнить:
+
+python manage.py makemigrations 
+python manage.py migrate
+
+cd marketdata/workers
+python upload_mdata.py //загрузка пакета торговых данных (так как у вас нет marketdata feed)
+
+python manage.py runserver
+
+После этого интерфейс приложения будет доступен по адресу http://127.0.0.1:8000
+
+Credentials
+Made by Tolbanchiki Team (c), 2022.
+All rights reserved.
