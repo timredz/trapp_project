@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-iss_auth_url = os.getenv('iss_auth_path')
+iss_auth_url = os.getenv('iss_auth_url')
 iss_login = os.getenv('iss_login')
 iss_pass = os.getenv('iss_pass')
+
 
 full_path = Path(os.getenv('util_path'))
 file_with_cookies = full_path / "iss_cookie.txt"

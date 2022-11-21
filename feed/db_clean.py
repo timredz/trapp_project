@@ -1,14 +1,9 @@
 from utils.connect_psql import bdengine
 
-q = """
-        DELETE FROM simplefront_eqcandles1min
-        where DATE(valid_time) < CURRENT_DATE
-    """
 
 q_clean_orders = """
         
     TRUNCATE TABLE marketdata_myorders
-    
     
 """
 

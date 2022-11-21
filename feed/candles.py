@@ -52,8 +52,6 @@ M1.columns = ['ticker', 'pr_open', 'pr_high', 'pr_low', 'pr_close', 'turnover', 
 M1['valid_time'] = pd.to_datetime(M1['valid_time'])
 M1['valid_time'] = M1['valid_time'].dt.tz_localize('Europe/Moscow')
 
-print(M10.tail())
-
 engine = bdengine()
 
 with engine.begin() as conn:

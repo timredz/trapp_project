@@ -46,7 +46,7 @@ with engine.begin() as conn:
 
     O = pd.read_sql(q_get_waiting_orders, conn)
     O['time'] = O['entrytime'].astype(str).str[11:16]
-    print(O)
+    
     O = pd.merge(O, X[['time', 'ticker', 'min', 'max']], how='left', on=['time', 'ticker'])
 
     O.loc[((O['price'] >= O['min']) | (O['price'] <= O['max'])), 'balance'] = 0
