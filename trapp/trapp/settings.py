@@ -34,11 +34,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-<<<<<<< HEAD
-=======
-    #'users.apps.UsersConfig',
-    #'core.apps.CoreConfig'
->>>>>>> refs/remotes/origin/main
 ]
 
 MIDDLEWARE = [

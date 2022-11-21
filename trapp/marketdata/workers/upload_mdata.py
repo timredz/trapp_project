@@ -1,7 +1,5 @@
 import pandas as pd
-import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 db_string = f"postgresql://timredz:fxworld@localhost:5432/trapp"
 
