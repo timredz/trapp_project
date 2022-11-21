@@ -27,7 +27,7 @@ def SignUp(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, 'fxworldteam@yandex.ru', to=[to_email])
+            send_mail(mail_subject, message, 'fxworldteam@yandex.ru', [to_email])
 
             return HttpResponse('-->На вашу почту отправлено письмо. Подтвердите пожалуйста, пройдя по ссылке')
     else:

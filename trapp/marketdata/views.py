@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .workers import instruments_data, candle_and_ob, positions
 from .models import Instruments, Orderbook, Candles10min, Candles1min, Customers, Balance, MyOrders, MyTrades
 from django.contrib.auth.decorators import login_required
+
 from django.core.mail import send_mail
 
 from .serializers import (
@@ -56,7 +57,6 @@ def get_balance(request):
             balance[item['currency']] = item['quantity']
         #serializer = BalanceSerializer(result, many=True)
         return Response(balance)
-
 
 
 
