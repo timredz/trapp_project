@@ -9,11 +9,13 @@ from .workers import instruments_data, candle_and_ob, positions
 from .models import Instruments, Orderbook, Candles10min, Candles1min, Customers, Balance, MyOrders, MyTrades
 from django.contrib.auth.decorators import login_required
 
-from django.core.mail import send_mail
+from django.views.decorators.cache import cache_page
 
 from .serializers import (
     MyOrdersSerializer, OrderbookSerializer, CandleSerializer, BalanceSerializer, MyTradesSerializer
 )
+
+CACHE_TTL = 60*5
 
 ticker_names = {
 	"USD000UTSTOM": "USD/RUB",
@@ -37,6 +39,7 @@ fx_dict = {
 	"EURUSD000TOM": {"name": "EUR/USD", "base": "USD", "asset": "EUR", "lot": 1000, "symbol": "€"},
 }
 
+@cache_page(CACHE_TTL)
 def index(request):
     template = 'index.html'
     return render(request, template)
