@@ -63,3 +63,4 @@ engine = bdengine()
 with engine.begin() as conn:
     conn.execute("truncate table marketdata_orderbook")
     O.to_sql('marketdata_orderbook', conn, if_exists = 'append', index=None)
+    
